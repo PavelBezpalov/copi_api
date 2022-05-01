@@ -1,0 +1,6 @@
+production:
+  path: json/copy_production.json
+development:
+  path: json/copy_development.json
+test:
+  path: json/copy_test.json
