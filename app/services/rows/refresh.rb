@@ -1,3 +1,0 @@
-class Rows::Refresh
-
-end
