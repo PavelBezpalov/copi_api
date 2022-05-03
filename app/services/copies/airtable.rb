@@ -5,8 +5,8 @@ class Copies::Airtable
 
   def call
     records = CopyTable.all
-    records.map do |raw_copy|
-      model.new(key: raw_copy.fields["Key"], copy: raw_copy.fields["Copy"], created_at: Time.zone.now.to_i)
+    records.map do |record|
+      model.new(key: record["Key"], copy: record["Copy"], created_at: Time.zone.now.to_i)
     end
   end
 
