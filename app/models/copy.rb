@@ -1,12 +1,7 @@
 class Copy
   class << self
     def all
-      records = Copies::All.new.call
-      records.map do |record|
-        self.new(key: record[:key],
-                 copy: record[:copy],
-                 created_at: record[:created_at])
-      end
+      Copies::Stored.new(self).call
     end
 
     def since(timestamp)
@@ -18,15 +13,41 @@ class Copy
     def find(key)
       all.find { |record| record.key == key }
     end
+
+    def airtable
+      Copies::Airtable.new(self).call
+    end
+
+    def refresh
+      copies = Copies::Refresh.new(all, airtable).call
+      save(copies)
+    end
+
+    def import
+      copies = airtable
+      save(copies)
+    end
+
+    def save(copies)
+      File.write(json_file_path, JSON.pretty_generate(copies))
+    end
+
+    def json_file_path
+      Rails.configuration.x.json_file["path"]
+    end
   end
 
-  attr_accessor :copy
-  attr_reader :key, :created_at
+  attr_accessor :copy, :created_at
+  attr_reader :key
 
   def initialize(key:, copy:, created_at:)
     @key = key
     @copy = copy
     @created_at = created_at
+  end
+
+  def ==(other)
+    key == other.key && copy == other.copy
   end
 
   def formatted(params)
@@ -40,6 +61,11 @@ class Copy
 
   def to_json(*args)
     { key: key, copy: copy, created_at: created_at }.to_json(*args)
+  end
+
+  def update(copy:, created_at:)
+    self.copy = copy
+    self.created_at = created_at
   end
 
   private

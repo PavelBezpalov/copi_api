@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.airtable.com/v0/app5W8aHewaML48Kv/tbl0K1h0XrgjJNowH
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <API_KEY>
+      User-Agent:
+      - Airrecord/1.0.10
+      X-Api-Version:
+      - 0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - authorization,content-length,content-type,user-agent,x-airtable-application-id,x-airtable-user-agent,x-api-version,x-requested-with
+      Access-Control-Allow-Methods:
+      - DELETE,GET,OPTIONS,PATCH,POST,PUT
+      Access-Control-Allow-Origin:
+      - "*"
+      Airtable-Uncompressed-Content-Length:
+      - '577'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 03 May 2022 07:22:33 GMT
+      Server:
+      - Tengine
+      Set-Cookie:
+      - brw=brwT0prLUFcdopSDp; path=/; expires=Wed, 03 May 2023 07:22:33 GMT; domain=.airtable.com;
+        samesite=none; secure
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Length:
+      - '277'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '{"records":[{"id":"reccrIlW8ta7ucnnw","createdTime":"2022-04-27T11:52:10.000Z","fields":{"Copy":"Intro
+        created on {created_at, datetime}","Key":"intro.created_at"}},{"id":"recepSB8YDospS7Rp","createdTime":"2022-05-03T07:21:25.000Z","fields":{"Key":"time","Copy":"It
+        is {time, datetime}"}},{"id":"recs1EgsghVIFIdae","createdTime":"2022-04-27T11:52:10.000Z","fields":{"Copy":"Hi
+        {name}, welcome to {app}!","Key":"greeting"}},{"id":"recvCX9ZWgCDDbIsy","createdTime":"2022-04-27T11:52:10.000Z","fields":{"Copy":"Intro
+        updated on {updated_at, datetime}","Key":"intro.updated_at"}}]}'
+  recorded_at: Tue, 03 May 2022 06:10:00 GMT
+recorded_with: VCR 6.1.0

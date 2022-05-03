@@ -1,25 +1,25 @@
 class Copies::Refresh
+  def initialize(stored_copies, airtable_copies)
+    @stored_copies = stored_copies
+    @airtable_copies = airtable_copies
+  end
+
   def call
-    copydata = CopyTable.all
-    @copies = copydata.map do |raw_copy|
-      Copy.new(key: raw_copy.fields["Key"], copy: raw_copy.fields["Copy"], created_at: Time.zone.now.to_i)
+    airtable_copies.each do |airtable_copy|
+      next if stored_copies.include? airtable_copy
+
+      stored_copy = stored_copies.find { |record| record.key == airtable_copy.key }
+      if stored_copy
+        stored_copy.update(copy: airtable_copy.copy, created_at: airtable_copy.created_at)
+      else
+        stored_copies << airtable_copy
+      end
     end
-    dump_to_json
+    stored_copies
   end
 
   private
 
-  attr_reader :copies
+    attr_reader :stored_copies, :airtable_copies
 
-    def json_file_path
-      Rails.configuration.x.json_file["path"]
-    end
-
-    def json_copydata
-      JSON.pretty_generate(copies)
-    end
-
-    def dump_to_json
-      File.write(json_file_path, json_copydata)
-    end
 end

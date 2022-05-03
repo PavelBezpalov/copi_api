@@ -10,6 +10,6 @@ class CopiesController < ApplicationController
   end
 
   def refresh
-    Copies::Refresh.new.call
+    Copy.refresh
   end
 end

@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 require "vcr"
+require "minitest/autorun"
 
 VCR.configure do |c|
   c.cassette_library_dir = "test/fixtures/files/vcr_cassettes"
