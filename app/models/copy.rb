@@ -12,7 +12,7 @@ class Copy
     def since(timestamp)
       return all unless timestamp
 
-      all.select { |copy| copy.created_at > Time.at(timestamp.to_i).to_datetime }
+      all.select { |copy| copy.created_at >= timestamp.to_i }
     end
 
     def find(key)
@@ -26,7 +26,7 @@ class Copy
   def initialize(key:, copy:, created_at:)
     @key = key
     @copy = copy
-    @created_at = DateTime.iso8601(created_at)
+    @created_at = created_at
   end
 
   def formatted(params)
@@ -45,6 +45,6 @@ class Copy
   private
 
     def formatted_datetime(value)
-      Time.at(value.to_i).utc.strftime("%a %b %-d%l:%M:%S%p").sub("Tue", "Tues")
+      Time.zone.at(value.to_i).strftime("%a %b %-d %-l:%M:%S%p").sub("Tue", "Tues")
     end
 end

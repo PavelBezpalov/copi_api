@@ -28,7 +28,7 @@ class CopiesControllerTest < ActionDispatch::IntegrationTest
     third_copies_filtered_path = "test/fixtures/files/third_copies_filtered.json"
     third_copies_filtered_content = File.read(third_copies_filtered_path)
 
-    get "/copy?since=1651512009"
+    get "/copy?since=1651558800"
 
     assert_response :success
     assert_nothing_raised { JSON.parse(response.body) }
@@ -97,7 +97,7 @@ class CopiesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should refresh copies from airtable" do
-    travel_to DateTime.parse("2022-05-02T20:14:48.000+03:00") do
+    travel_to Time.zone.at(1651557600) do
       VCR.use_cassette("first run") do
         get "/copy/refresh"
         assert_response :success
