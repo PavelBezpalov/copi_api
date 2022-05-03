@@ -5,8 +5,12 @@ class CopiesController < ApplicationController
   end
 
   def show
-    formatted_copy = Copy.find(params[:key]).formatted(request.query_parameters)
-    render json: formatted_copy
+    copy = Copy.find(params[:key])
+    if copy
+      render json: copy.formatted(request.query_parameters)
+    else
+      render json: { error: "copy not found" }, status: :not_found
+    end
   end
 
   def refresh
