@@ -1,24 +1,26 @@
-# README
+1 Install ruby 3.1.2 with bundler gem
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+2 Run `bundle install`
 
-Things you may want to cover:
+3 Add constants to Rails custom credentials
 
-* Ruby version
+```
+airtable:
+  api_key: <YOUR AIRTABLE API KEY>
+  base_key: <YOUR AIRTABLE WORKSPACE KEY>
+  table_id: <YOUR AIRTABLE TABLE ID>
+```
 
-* System dependencies
+Run `bin\rails copy:import` to import airtable copies
 
-* Configuration
+Start rails by running command `bin\rails s`
 
-* Database creation
+API endpoints:
 
-* Database initialization
+`/copy` - returns all the copy in JSON format
 
-* How to run the test suite
+`/copy?since=1604352707` - only returns copy data changes after the since param
 
-* Services (job queues, cache servers, search engines, etc.)
+`/copy/{key}` - returns the correct value associated with the key
 
-* Deployment instructions
-
-* ...
+`/copy/refresh` - refresh the copy data in the backend server
